@@ -46,6 +46,7 @@ const konfirmasiHapus = () => {
 };
 
 const deleteNote = () => {
+  animation.value = "slide-left";
   konfirmasiHapus().then((result) => {
     if (result.isConfirmed) {
       store.commit("note/deleteNote", id.value);
@@ -74,13 +75,12 @@ const savingData = () => {
 };
 
 const showNoteList = () => {
-
   if (currentComponent.value == NoteDetail) {
     animation.value = "slide-left";
-  }else if (currentComponent.value == NoteCreate){
+  } else if (currentComponent.value == NoteCreate) {
     animation.value = "slide-right";
   }
-  
+
   if (isSaving.value == true) {
     konfirmasiSave().then((result) => {
       if (result.isConfirmed) {
@@ -160,17 +160,17 @@ const updatedData = (obj) => {
           v-slot:default
           v-else-if="currentComponent == NoteCreate ? true : false"
         >
-        <transition name="slide-fade" mode="out-in">
-          <div class="container-fluid justify-content-end">
-            <a
-              href="#"
-              class="nav-link btn btn-primary text-white btn-sm"
-              @click="showNoteList"
-            >
-              <i class="bi bi-chevron-right"></i>
-            </a>
-          </div>
-        </transition>
+          <transition name="slide-fade" mode="out-in">
+            <div class="container-fluid justify-content-end">
+              <a
+                href="#"
+                class="nav-link btn btn-primary text-white btn-sm"
+                @click="showNoteList"
+              >
+                <i class="bi bi-chevron-right"></i>
+              </a>
+            </div>
+          </transition>
         </template>
         <template v-slot:default v-else>
           <div class="container-fluid justify-content-start">
