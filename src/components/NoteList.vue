@@ -8,7 +8,7 @@
         @click="$emit('showNoteDetail', note.id)"
       >
         <div class="card-body">
-          <h5 class="card-title">{{  note.title.length >=25 ?  note.title.slice(0, 25) + "....." : note.title }}</h5>
+          <h5 class="card-title">{{  note.title.length >=30 ?  note.title.slice(0, 30) + "....." : note.title }}</h5>
           <p class="card-text">
             {{ note.body.length >=50 ?  note.body.slice(0, 50) + "....." : note.body }}
           </p>
