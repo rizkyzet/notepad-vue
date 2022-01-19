@@ -1,7 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        notes: JSON.parse(localStorage.getItem('notes'))
+        notes: localStorage.getItem('notes')? JSON.parse(localStorage.getItem('notes')) : []
     },
     mutations: {
         createNote(state,obj){
