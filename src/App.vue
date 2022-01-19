@@ -103,7 +103,7 @@ const updateData = () => {
   isSaving.value = false;
   Swal.fire({
     icon: "success",
-    title: "Your work has been saved",
+    title: "Your note has been saved",
     showConfirmButton: false,
     timer: 1500,
   });
@@ -153,7 +153,7 @@ const showNoteList = () => {
           isDisabledCreate.value = true;
           isSavingCreate.value = false;
           dataCreate.value = null;
-          Swal.fire("Note not save", "", "info");
+          Swal.fire("Note are not saved", "", "info");
         }
       });
     } else {
@@ -203,6 +203,7 @@ const updatedData = (obj) => {
                   @click="updateData"
                 >
                   <i class="bi bi-save"></i>
+                  Simpan
                 </a>
                 <a
                   href="#"
@@ -210,6 +211,7 @@ const updatedData = (obj) => {
                   @click="deleteNote"
                 >
                   <i class="bi bi-trash"></i>
+                  Hapus
                 </a>
               </div>
             </div>
@@ -260,14 +262,16 @@ const updatedData = (obj) => {
           <div class="container-fluid justify-content-center">
             <a
               href="#"
-              class="nav-link bg-primary text-white rounded-circle"
+              class="nav-link bg-primary text-white btn-sm"
               @click="edit"
             >
               <template v-if="isDisabled">
                 <i class="bi bi-lock"></i>
+                Lock
               </template>
               <template v-else>
                 <i class="bi bi-unlock"></i>
+                Unlock
               </template>
             </a>
           </div>
@@ -276,11 +280,13 @@ const updatedData = (obj) => {
           <div class="container-fluid justify-content-center">
             <a
               href="#"
-              class="nav-link btn btn-primary text-white rounded-circle"
+              class="nav-link btn btn-primary text-white btn-sm"
               :class="{ disabled: isDisabledCreate }"
               @click="saveData"
             >
               <i class="bi bi-save"></i>
+              &nbsp;
+              Simpan
             </a>
           </div>
         </template>
@@ -288,10 +294,11 @@ const updatedData = (obj) => {
           <div class="container-fluid justify-content-center">
             <a
               href="#"
-              class="nav-link bg-primary text-white rounded-circle"
+              class="nav-link bg-primary text-white btn-sm"
               @click="showNoteCreate"
             >
               <i class="bi bi-plus-lg"></i>
+              Buat Note
             </a>
             <!-- <a href="#" class="nav-link" @click="setItem">set data</a> -->
           </div>

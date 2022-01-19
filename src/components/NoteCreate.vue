@@ -7,7 +7,7 @@
             type="text"
             class="form-control"
             v-model="title"
-            placeholder="title"
+            placeholder="Title"
           />
         </div>
         <div class="mb-3">
@@ -15,7 +15,7 @@
             class="form-control"
             rows="18"
             v-model="body"
-            placeholder="note"
+            placeholder="Note"
           ></textarea>
         </div>
       </div>
