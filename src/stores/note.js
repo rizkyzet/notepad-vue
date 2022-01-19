@@ -4,6 +4,11 @@ export default {
         notes: JSON.parse(localStorage.getItem('notes'))
     },
     mutations: {
+        createNote(state,obj){
+            state.notes.unshift(obj)
+            localStorage.setItem('notes', JSON.stringify(state.notes))
+            
+        },
         getItem(state) {
             state.notes = JSON.parse(localStorage.getItem('notes'))
         },

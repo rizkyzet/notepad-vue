@@ -14,7 +14,7 @@
         <div class="mb-3">
           <textarea
             class="form-control"
-            rows="15"
+            rows="18"
             v-model="body"
             :disabled="isDisabled"
             ref="domBody"

@@ -10,10 +10,35 @@ import NavTop from "./components/NavTop.vue";
 const currentComponent = shallowRef(NoteList);
 const id = ref("");
 const isDisabled = ref(true);
+const isDisabledCreate = ref(true);
 const isSaving = ref(false);
+const isSavingCreate = ref(false);
 const dataUpdate = ref(null);
+const dataCreate = ref(null);
 const animation = ref("");
 const store = useStore();
+
+const saveData = () => {
+  animation.value = "slide-right";
+  store.commit("note/createNote", dataCreate.value);
+  currentComponent.value = NoteList;
+  isDisabledCreate.value = true;
+  isSavingCreate.value = false;
+  dataCreate.value = null;
+  Swal.fire("Saved!", "", "success");
+};
+
+const createData = (val) => {
+  dataCreate.value = val;
+};
+
+const savingCreate = (val) => {
+  isSavingCreate.value = val;
+};
+
+const unlockCreate = (val) => {
+  isDisabledCreate.value = val;
+};
 
 const showNoteCreate = () => {
   animation.value = "slide-left";
@@ -29,6 +54,16 @@ const showNoteDetail = (val) => {
 const konfirmasiSave = () => {
   return Swal.fire({
     title: "Do you want to save the changes?",
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Save",
+    denyButtonText: `Don't save`,
+  });
+};
+
+const konfirmasiSaveCreate = () => {
+  return Swal.fire({
+    title: "Do you want to save note?",
     showDenyButton: true,
     showCancelButton: true,
     confirmButtonText: "Save",
@@ -62,7 +97,7 @@ const setItem = () => {
   store.commit("note/setItem");
 };
 
-const savingData = () => {
+const updateData = () => {
   store.commit("note/updateNote", dataUpdate.value);
   isDisabled.value = true;
   isSaving.value = false;
@@ -77,29 +112,53 @@ const savingData = () => {
 const showNoteList = () => {
   if (currentComponent.value == NoteDetail) {
     animation.value = "slide-left";
+    // Save Detail ketika back
+    if (isSaving.value == true) {
+      konfirmasiSave().then((result) => {
+        if (result.isConfirmed) {
+          store.commit("note/updateNote", dataUpdate.value);
+          currentComponent.value = NoteList;
+          isDisabled.value = true;
+          isSaving.value = false;
+          dataUpdate.value = null;
+          Swal.fire("Saved!", "", "success");
+        } else if (result.isDenied) {
+          currentComponent.value = NoteList;
+          isDisabled.value = true;
+          isSaving.value = false;
+          dataUpdate.value = null;
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
+    } else {
+      currentComponent.value = NoteList;
+      isDisabled.value = true;
+      isSaving.value = false;
+      dataUpdate.value = null;
+    }
   } else if (currentComponent.value == NoteCreate) {
     animation.value = "slide-right";
-  }
-
-  if (isSaving.value == true) {
-    konfirmasiSave().then((result) => {
-      if (result.isConfirmed) {
-        store.commit("note/updateNote", dataUpdate.value);
-        currentComponent.value = NoteList;
-        isDisabled.value = true;
-        isSaving.value = false;
-        Swal.fire("Saved!", "", "success");
-      } else if (result.isDenied) {
-        currentComponent.value = NoteList;
-        isDisabled.value = true;
-        isSaving.value = false;
-        Swal.fire("Changes are not saved", "", "info");
-      }
-    });
-  } else {
-    currentComponent.value = NoteList;
-    isDisabled.value = true;
-    isSaving.value = false;
+    // Save Create ketika back
+    if (isSavingCreate.value == true) {
+      konfirmasiSaveCreate().then((result) => {
+        if (result.isConfirmed) {
+          store.commit("note/createNote", dataCreate.value);
+          currentComponent.value = NoteList;
+          isDisabledCreate.value = true;
+          isSavingCreate.value = false;
+          dataCreate.value = null;
+          Swal.fire("Saved!", "", "success");
+        } else if (result.isDenied) {
+          currentComponent.value = NoteList;
+          isDisabledCreate.value = true;
+          isSavingCreate.value = false;
+          dataCreate.value = null;
+          Swal.fire("Note not save", "", "info");
+        }
+      });
+    } else {
+      currentComponent.value = NoteList;
+    }
   }
 };
 
@@ -141,7 +200,7 @@ const updatedData = (obj) => {
                   href="#"
                   class="nav-link btn btn-primary text-white btn-sm"
                   :class="{ disabled: !isSaving }"
-                  @click="savingData"
+                  @click="updateData"
                 >
                   <i class="bi bi-save"></i>
                 </a>
@@ -188,7 +247,10 @@ const updatedData = (obj) => {
             :id="id"
             :isDisabled="isDisabled"
             @isSaving="saving"
+            @isSavingCreate="savingCreate"
             @newUpdatedData="updatedData"
+            @unlockButtonCreate="unlockCreate"
+            @newCreateData="createData"
           ></component>
         </transition>
       </div>
@@ -210,6 +272,18 @@ const updatedData = (obj) => {
             </a>
           </div>
         </template>
+        <template v-else-if="currentComponent == NoteCreate ? true : false">
+          <div class="container-fluid justify-content-center">
+            <a
+              href="#"
+              class="nav-link btn btn-primary text-white rounded-circle"
+              :class="{ disabled: isDisabledCreate }"
+              @click="saveData"
+            >
+              <i class="bi bi-save"></i>
+            </a>
+          </div>
+        </template>
         <template v-else>
           <div class="container-fluid justify-content-center">
             <a
@@ -219,7 +293,7 @@ const updatedData = (obj) => {
             >
               <i class="bi bi-plus-lg"></i>
             </a>
-            <a href="#" class="nav-link" @click="setItem">set data</a>
+            <!-- <a href="#" class="nav-link" @click="setItem">set data</a> -->
           </div>
         </template>
       </NavBottom>
