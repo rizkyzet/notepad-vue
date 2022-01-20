@@ -364,39 +364,45 @@ const updatedData = (obj) => {
   opacity: 0;
 }
 
+/* SLIDE RIGHT */
 .slide-right-enter-active {
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-right-leave-active {
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-right-enter-from {
   transform: translateX(400px);
+   /* transform:scale(0); */
   opacity: 0;
 }
 
 .slide-right-leave-to {
   transform: translateX(-500px);
+  /* transform:scale(2); */
   opacity: 0;
 }
 
+/* SLIDE LEFT */
 .slide-left-enter-active {
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-left-leave-active {
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-left-enter-from {
-  transform: translateX(-400px);
+  transform: scale(-400px);
+  /* transform:scale(2); */
   opacity: 0;
 }
 
 .slide-left-leave-to {
   transform: translateX(400px);
+   /* transform:scale(0); */
   opacity: 0;
 }
 
