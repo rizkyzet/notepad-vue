@@ -1,21 +1,24 @@
 <template>
-  <div class="px-4 py-3">
-    <div class="row justify-content-center">
-      <div class="col-lg-12 col-md-7 col-sm-10 col-12" key="create">
-        <div class="mb-3">
-          <input
-            type="text"
-            class="form-control"
-            v-model="title"
-            placeholder="Title"
-          />
-        </div>
-        <div class="mb-3">
+  <div class="px-0 py-0 h-100">
+    <div class="row justify-content-center h-100">
+      <div
+        class="col-lg-12 col-md-7 col-sm-10 col-12 d-flex flex-column h-100"
+        key="create"
+      >
+        <input
+          type="text"
+          class="input-zet fs-5"
+          v-model="title"
+          placeholder="Title"
+          autofocus
+        />
+
+        <div class="mb-3 flex-fill">
           <textarea
-            class="form-control"
-            rows="18"
+            class="input-zet h-100"
+            rows="0"
             v-model="body"
-            placeholder="Note"
+            placeholder="Your note..."
           ></textarea>
         </div>
       </div>
@@ -27,7 +30,7 @@
 import { watch, ref } from "vue";
 
 export default {
-  emits: ["unlockButtonCreate", "isSavingCreate","newCreateData"],
+  emits: ["unlockButtonCreate", "isSavingCreate", "newCreateData"],
   setup(props, context) {
     const title = ref("");
     const body = ref("");
@@ -41,10 +44,10 @@ export default {
         context.emit("isSavingCreate", false);
       } else {
         const newObj = {
-          id:generateId(),
-          title:title.value==''? 'No Title':title.value,
-          body:body.value
-        }
+          id: generateId(),
+          title: title.value == "" ? "No Title" : title.value,
+          body: body.value,
+        };
         context.emit("unlockButtonCreate", false);
         context.emit("isSavingCreate", true);
         context.emit("newCreateData", newObj);
@@ -59,4 +62,20 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.input-zet {
+  width: 100%;
+  outline: 0;
+  border: 0;
+  position: relative;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    border: 0;
+    outline: 0;
+   
+  }
+}
+</style>

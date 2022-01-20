@@ -1,20 +1,22 @@
 <template>
-  <div class="px-4 py-3">
-    <div class="row justify-content-center">
-      <div class="col-lg-12 col-md-7 col-sm-10 col-12" :key="note.id">
-        <div class="mb-3">
-          <input
-            type="text"
-            class="form-control"
-            v-model="title"
-            :disabled="isDisabled"
-            ref="domTitle"
-          />
-        </div>
-        <div class="mb-3">
+  <div class="px-0 py-0 h-100">
+    <div class="row justify-content-center h-100">
+      <div
+        class="col-lg-12 col-md-7 col-sm-10 col-12 d-flex flex-column h-100"
+        :key="note.id"
+      >
+        <input
+          type="text"
+          class="input-zet fs-5"
+          v-model="title"
+          :disabled="isDisabled"
+          ref="domTitle"
+        />
+
+        <div class="mb-3 flex-fill">
           <textarea
-            class="form-control"
-            rows="18"
+            class="input-zet h-100"
+            rows="0"
             v-model="body"
             :disabled="isDisabled"
             ref="domBody"
@@ -84,10 +86,31 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 input,
 textarea {
   background: white;
   border: 0;
+}
+
+.input-zet {
+  width: 100%;
+  outline: 0;
+  border: 0;
+  position: relative;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    border: 0;
+    outline: 0;
+  }
+
+  &:disabled {
+    border: 0;
+    outline: 0;
+    background-color: whitesmoke;
+  }
 }
 </style>
