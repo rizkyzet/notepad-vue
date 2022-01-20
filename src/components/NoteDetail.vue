@@ -1,6 +1,6 @@
 <template>
   <div class="px-0 py-0 h-100">
-    <div class="row justify-content-center h-100" @click="unlock">
+    <div class="row justify-content-center h-100" @click="unlock($event)">
       <div class="col-lg-12 d-flex flex-column h-100" :key="note.id">
         <input
           type="text"
@@ -26,7 +26,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { ref, computed, reactive, watch, onUpdated } from "vue";
+import { ref, computed, reactive, watch, onUpdated,nextTick } from "vue";
 export default {
   props: {
     id: {
@@ -55,19 +55,24 @@ export default {
       }
     });
 
-    const unlock = () => {
-   
+    const unlock = (event) => {
+
       if (props.isDisabled == true) {
         click++;
         if (click == 2) {
           context.emit("unlockEdit");
           click = 0;
+          nextTick(()=>{
+            console.log('ok')
+           event.target.focus()
+          });
         }
       }
     };
 
+   
     // onUpdated(() => {
-    //   // props.isDisabled == false ? domBody.value.focus() : false;
+    //   props.isDisabled == false ? domTitle.value.focus() : false;
     // });
 
     // watch([props.isDisabled], (newVal, preVal) => {
