@@ -25,7 +25,7 @@ onBeforeMount(() => {
     title: "Ini Sample Note",
     body: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam id, voluptatum numquam quam illum dolores officia deserunt quo veniam ipsa enim voluptatem sequi voluptates alias?",
   };
-  console.log(dataNotes.length)
+
   if (dataNotes.length == 0) {
     store.commit("note/createNote", objData);
 
@@ -136,12 +136,14 @@ const showNoteList = () => {
           isDisabled.value = true;
           isSaving.value = false;
           dataUpdate.value = null;
+          id.value = "";
           Swal.fire("Saved!", "", "success");
         } else if (result.isDenied) {
           currentComponent.value = NoteList;
           isDisabled.value = true;
           isSaving.value = false;
           dataUpdate.value = null;
+          id.value = "";
           Swal.fire("Changes are not saved", "", "info");
         }
       });
@@ -150,6 +152,7 @@ const showNoteList = () => {
       isDisabled.value = true;
       isSaving.value = false;
       dataUpdate.value = null;
+      id.value = "";
     }
   } else if (currentComponent.value == NoteCreate) {
     animation.value = "slide-right";
@@ -162,17 +165,23 @@ const showNoteList = () => {
           isDisabledCreate.value = true;
           isSavingCreate.value = false;
           dataCreate.value = null;
+          id.value = "";
           Swal.fire("Saved!", "", "success");
         } else if (result.isDenied) {
           currentComponent.value = NoteList;
           isDisabledCreate.value = true;
           isSavingCreate.value = false;
           dataCreate.value = null;
+          id.value = "";
           Swal.fire("Note are not saved", "", "info");
         }
       });
     } else {
       currentComponent.value = NoteList;
+      isDisabledCreate.value = true;
+      isSavingCreate.value = false;
+      dataCreate.value = null;
+      id.value = "";
     }
   }
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="px-0 py-0 h-100">
-    <div class="row justify-content-center h-100"  @click="unlock">
+    <div class="row justify-content-center h-100" @click="unlock">
       <div class="col-lg-12 d-flex flex-column h-100" :key="note.id">
         <input
           type="text"
@@ -8,7 +8,6 @@
           v-model="title"
           :disabled="isDisabled"
           ref="domTitle"
-         
         />
 
         <div class="mb-3 flex-fill">
@@ -39,7 +38,7 @@ export default {
       default: true,
     },
   },
-  emits: ["back", "isSaving", "newUpdatedData","unlockEdit"],
+  emits: ["back", "isSaving", "newUpdatedData", "unlockEdit"],
   setup(props, context) {
     const store = useStore();
     const note = store.state.note.notes.find((note) => note.id === props.id);
@@ -47,12 +46,23 @@ export default {
     const body = ref(note.body);
     const domTitle = ref(null);
     const domBody = ref(null);
-let click = 0;
+
+    let click = 0;
+
+    onUpdated(() => {
+      if (props.isDisabled == false) {
+        click = 0;
+      }
+    });
 
     const unlock = () => {
-      click++
-      if(click == 2){
-         context.emit("unlockEdit");
+   
+      if (props.isDisabled == true) {
+        click++;
+        if (click == 2) {
+          context.emit("unlockEdit");
+          click = 0;
+        }
       }
     };
 
