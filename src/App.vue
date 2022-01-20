@@ -178,7 +178,7 @@ const updatedData = (obj) => {
 <template>
   <div class="row justify-content-center px-4 py-0 m-0">
     <div
-      class="col-lg-5 col-md-10 col-sm-12 col-12 p-0 parent-container d-flex flex-column"
+      class="col-lg-5 col-md-8 col-sm-12 col-12 p-0 parent-container d-flex flex-column"
     >
       <NavTop>
         <template
@@ -186,11 +186,11 @@ const updatedData = (obj) => {
           v-if="currentComponent == NoteDetail ? true : false"
         >
           <transition name="slide-fade" mode="out-in">
-            <div class="container-fluid justify-content-between">
+            <div class="container-fluid justify-content-between px-1">
               <a
                 href="#"
                 class="nav-link btn btn-primary text-white btn-sm"
-                @click="showNoteList"
+                @click.prevent="showNoteList"
               >
                 <i class="bi bi-chevron-left"></i>
               </a>
@@ -200,7 +200,7 @@ const updatedData = (obj) => {
                   href="#"
                   class="nav-link btn btn-primary text-white btn-sm"
                   :class="{ disabled: !isSaving }"
-                  @click="updateData"
+                  @click.prevent="updateData"
                 >
                   <i class="bi bi-save"></i>
                   Simpan
@@ -208,7 +208,7 @@ const updatedData = (obj) => {
                 <a
                   href="#"
                   class="nav-link btn btn-primary text-white btn-sm"
-                  @click="deleteNote"
+                  @click.prevent="deleteNote"
                 >
                   <i class="bi bi-trash"></i>
                   Hapus
@@ -226,7 +226,7 @@ const updatedData = (obj) => {
               <a
                 href="#"
                 class="nav-link btn btn-primary text-white btn-sm"
-                @click="showNoteList"
+                @click.prevent="showNoteList"
               >
                 <i class="bi bi-chevron-right"></i>
               </a>
@@ -253,6 +253,7 @@ const updatedData = (obj) => {
             @newUpdatedData="updatedData"
             @unlockButtonCreate="unlockCreate"
             @newCreateData="createData"
+            @unlockEdit="edit"
           ></component>
         </transition>
       </div>
@@ -263,7 +264,7 @@ const updatedData = (obj) => {
             <a
               href="#"
               class="nav-link bg-primary text-white btn-sm"
-              @click="edit"
+              @click.prevent="edit"
             >
               <template v-if="isDisabled">
                 <i class="bi bi-lock"></i>
@@ -282,7 +283,7 @@ const updatedData = (obj) => {
               href="#"
               class="nav-link btn btn-primary text-white btn-sm"
               :class="{ disabled: isDisabledCreate }"
-              @click="saveData"
+              @click.prevent="saveData"
             >
               <i class="bi bi-save"></i>
               &nbsp;
@@ -295,7 +296,7 @@ const updatedData = (obj) => {
             <a
               href="#"
               class="nav-link bg-primary text-white btn-sm"
-              @click="showNoteCreate"
+              @click.prevent="showNoteCreate"
             >
               <i class="bi bi-plus-lg"></i>
               Buat Note

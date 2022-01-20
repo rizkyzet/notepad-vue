@@ -2,7 +2,7 @@
   <div class="px-0 py-0 h-100">
     <div class="row justify-content-center h-100">
       <div
-        class="col-lg-12 col-md-7 col-sm-10 col-12 d-flex flex-column h-100"
+        class="col-12 d-flex flex-column h-100"
         key="create"
       >
         <input

@@ -5,7 +5,7 @@
     <div class="col my-3" v-for="note in notes" :key="note.id">
       <div
         class="card h-100 border-primary bg-primary text-white"
-        @click="$emit('showNoteDetail', note.id)"
+        @click.prevent="$emit('showNoteDetail', note.id)"
       >
         <div class="card-body">
           <h5 class="card-title">{{  note.title.length >=30 ?  note.title.slice(0, 30) + "....." : note.title }}</h5>

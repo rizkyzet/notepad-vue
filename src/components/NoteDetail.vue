@@ -1,16 +1,14 @@
 <template>
   <div class="px-0 py-0 h-100">
-    <div class="row justify-content-center h-100">
-      <div
-        class="col-lg-12 col-md-7 col-sm-10 col-12 d-flex flex-column h-100"
-        :key="note.id"
-      >
+    <div class="row justify-content-center h-100"  @click="unlock">
+      <div class="col-lg-12 d-flex flex-column h-100" :key="note.id">
         <input
           type="text"
           class="input-zet fs-5"
           v-model="title"
           :disabled="isDisabled"
           ref="domTitle"
+         
         />
 
         <div class="mb-3 flex-fill">
@@ -41,7 +39,7 @@ export default {
       default: true,
     },
   },
-  emits: ["back", "isSaving", "newUpdatedData"],
+  emits: ["back", "isSaving", "newUpdatedData","unlockEdit"],
   setup(props, context) {
     const store = useStore();
     const note = store.state.note.notes.find((note) => note.id === props.id);
@@ -49,6 +47,14 @@ export default {
     const body = ref(note.body);
     const domTitle = ref(null);
     const domBody = ref(null);
+let click = 0;
+
+    const unlock = () => {
+      click++
+      if(click == 2){
+         context.emit("unlockEdit");
+      }
+    };
 
     // onUpdated(() => {
     //   // props.isDisabled == false ? domBody.value.focus() : false;
@@ -81,6 +87,7 @@ export default {
       domTitle,
       disabled,
       domBody,
+      unlock,
     };
   },
 };
