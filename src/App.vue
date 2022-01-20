@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, shallowRef } from "vue";
+import { ref, reactive, shallowRef, onBeforeMount, onMounted } from "vue";
 import { useStore } from "vuex";
 import NoteList from "./components/NoteList.vue";
 import NoteDetail from "./components/NoteDetail.vue";
@@ -17,6 +17,21 @@ const dataUpdate = ref(null);
 const dataCreate = ref(null);
 const animation = ref("");
 const store = useStore();
+
+onBeforeMount(() => {
+  const dataNotes = store.state.note.notes;
+  const objData = {
+    id: btoa(Math.random().toString()).substr(10, 5),
+    title: "Ini Sample Note",
+    body: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam id, voluptatum numquam quam illum dolores officia deserunt quo veniam ipsa enim voluptatem sequi voluptates alias?",
+  };
+  console.log(dataNotes.length)
+  if (dataNotes.length == 0) {
+    store.commit("note/createNote", objData);
+
+    // localStorage.setItem("notes", JSON.stringify([objData]));
+  }
+});
 
 const saveData = () => {
   animation.value = "slide-right";
@@ -286,8 +301,7 @@ const updatedData = (obj) => {
               @click.prevent="saveData"
             >
               <i class="bi bi-save"></i>
-              &nbsp;
-              Simpan
+              &nbsp; Simpan
             </a>
           </div>
         </template>
