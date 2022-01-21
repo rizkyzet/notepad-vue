@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-light bg-light">
-    <transition name="slide-fade" mode="out-in">
+ 
       <slot></slot>
-    </transition>
+
   </nav>
 </template>
 

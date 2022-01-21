@@ -34,7 +34,7 @@ onBeforeMount(() => {
 });
 
 const saveData = () => {
-  animation.value = "fade-out";
+  animation.value = "fade";
   store.commit("note/createNote", dataCreate.value);
   currentComponent.value = NoteList;
   isDisabledCreate.value = true;
@@ -56,12 +56,12 @@ const unlockCreate = (val) => {
 };
 
 const showNoteCreate = () => {
-  animation.value = "fade-out";
+  animation.value = "fade";
   currentComponent.value = NoteCreate;
 };
 
 const showNoteDetail = (val) => {
-  animation.value = "in";
+  animation.value = "fade";
   currentComponent.value = NoteDetail;
   id.value = val;
 };
@@ -96,7 +96,7 @@ const konfirmasiHapus = () => {
 };
 
 const deleteNote = () => {
-  animation.value = "fade-out";
+  animation.value = "fade";
   konfirmasiHapus().then((result) => {
     if (result.isConfirmed) {
       store.commit("note/deleteNote", id.value);
@@ -126,7 +126,7 @@ const updateData = () => {
 
 const showNoteList = () => {
   if (currentComponent.value == NoteDetail) {
-    animation.value = "fade-out";
+    animation.value = "fade";
     // Save Detail ketika back
     if (isSaving.value == true) {
       konfirmasiSave().then((result) => {
@@ -155,7 +155,7 @@ const showNoteList = () => {
       id.value = "";
     }
   } else if (currentComponent.value == NoteCreate) {
-    animation.value = "fade-out";
+    animation.value = "fade";
     // Save Create ketika back
     if (isSavingCreate.value == true) {
       konfirmasiSaveCreate().then((result) => {
@@ -349,11 +349,11 @@ const updatedData = (obj) => {
 }
 
 .slide-fade-enter-active {
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-fade-leave-active {
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-fade-enter-from {
@@ -464,6 +464,17 @@ const updatedData = (obj) => {
 .in-leave-to {
   transform: scale(2);
   opacity: 0;
+}
+
+
+/* FADE */
+.fade-enter-active,.fade-leave-active {
+  transition: all 0.2s ease-out;
+}
+
+
+.fade-enter-from,.fade-leave-to {
+  opacity:0;
 }
 
 
