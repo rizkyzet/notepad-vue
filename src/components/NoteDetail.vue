@@ -1,5 +1,5 @@
 <template>
-  <div class="px-0 py-0 h-100">
+  <div class="px-0 py-0 h-100 m-0">
     <div class="row justify-content-center h-100" @click="unlock($event)">
       <div class="col-lg-12 d-flex flex-column h-100" :key="note.id">
         <input
@@ -11,7 +11,7 @@
           placeholder="Title"
         />
 
-        <div class="mb-3 flex-fill">
+        <div class="flex-fill">
           <textarea
             class="input-zet h-100"
             rows="0"

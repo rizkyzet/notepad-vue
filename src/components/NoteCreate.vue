@@ -13,7 +13,7 @@
           autofocus
         />
 
-        <div class="mb-3 flex-fill">
+        <div class="flex-fill">
           <textarea
             class="input-zet h-100"
             rows="0"
