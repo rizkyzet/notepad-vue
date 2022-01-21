@@ -8,6 +8,7 @@
           v-model="title"
           :disabled="isDisabled"
           ref="domTitle"
+          placeholder="Title"
         />
 
         <div class="mb-3 flex-fill">
@@ -17,6 +18,7 @@
             v-model="body"
             :disabled="isDisabled"
             ref="domBody"
+            placeholder="Your note...."
           ></textarea>
         </div>
       </div>

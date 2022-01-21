@@ -56,12 +56,12 @@ const unlockCreate = (val) => {
 };
 
 const showNoteCreate = () => {
-  animation.value = "slide-left";
+  animation.value = "fade-out";
   currentComponent.value = NoteCreate;
 };
 
 const showNoteDetail = (val) => {
-  animation.value = "slide-right";
+  animation.value = "in";
   currentComponent.value = NoteDetail;
   id.value = val;
 };
@@ -126,7 +126,7 @@ const updateData = () => {
 
 const showNoteList = () => {
   if (currentComponent.value == NoteDetail) {
-    animation.value = "slide-left";
+    animation.value = "fade-out";
     // Save Detail ketika back
     if (isSaving.value == true) {
       konfirmasiSave().then((result) => {
@@ -155,7 +155,7 @@ const showNoteList = () => {
       id.value = "";
     }
   } else if (currentComponent.value == NoteCreate) {
-    animation.value = "slide-right";
+    animation.value = "fade-in";
     // Save Create ketika back
     if (isSavingCreate.value == true) {
       konfirmasiSaveCreate().then((result) => {
@@ -405,6 +405,67 @@ const updatedData = (obj) => {
    /* transform:scale(0); */
   opacity: 0;
 }
+
+
+
+/* FADE OUT */
+.fade-out-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.fade-out-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.fade-out-enter-from {
+  transform: scale(1);
+  opacity: 0;
+}
+
+.fade-out-leave-to {
+  transform: scale(0);
+  opacity: 0;
+}
+
+
+/* FADE IN */
+.fade-in-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.fade-in-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.fade-in-enter-from {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.fade-in-leave-to {
+  transform: scale(1);
+  opacity: 0;
+}
+
+/* IN */
+.in-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.in-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.in-enter-from {
+  transform: scale(1);
+  opacity: 0;
+}
+
+.in-leave-to {
+  transform: scale(2);
+  opacity: 0;
+}
+
 
 /* width */
 ::-webkit-scrollbar {
