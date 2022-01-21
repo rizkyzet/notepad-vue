@@ -34,7 +34,7 @@ onBeforeMount(() => {
 });
 
 const saveData = () => {
-  animation.value = "slide-right";
+  animation.value = "fade-out";
   store.commit("note/createNote", dataCreate.value);
   currentComponent.value = NoteList;
   isDisabledCreate.value = true;
@@ -96,7 +96,7 @@ const konfirmasiHapus = () => {
 };
 
 const deleteNote = () => {
-  animation.value = "slide-left";
+  animation.value = "fade-out";
   konfirmasiHapus().then((result) => {
     if (result.isConfirmed) {
       store.commit("note/deleteNote", id.value);
@@ -438,7 +438,7 @@ const updatedData = (obj) => {
 }
 
 .fade-in-enter-from {
-  transform: scale(0);
+  transform: scale(1);
   opacity: 0;
 }
 
@@ -457,7 +457,7 @@ const updatedData = (obj) => {
 }
 
 .in-enter-from {
-  transform: scale(0);
+  transform: scale(2);
   opacity:0;
 }
 
