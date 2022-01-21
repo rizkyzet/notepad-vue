@@ -155,7 +155,7 @@ const showNoteList = () => {
       id.value = "";
     }
   } else if (currentComponent.value == NoteCreate) {
-    animation.value = "fade-in";
+    animation.value = "fade-out";
     // Save Create ketika back
     if (isSavingCreate.value == true) {
       konfirmasiSaveCreate().then((result) => {
@@ -418,7 +418,7 @@ const updatedData = (obj) => {
 }
 
 .fade-out-enter-from {
-  transform: scale(1);
+  transform: scale(0);
   opacity: 0;
 }
 
@@ -457,8 +457,8 @@ const updatedData = (obj) => {
 }
 
 .in-enter-from {
-  transform: scale(1);
-  opacity: 0;
+  transform: scale(0);
+  opacity:0;
 }
 
 .in-leave-to {
