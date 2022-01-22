@@ -118,8 +118,7 @@ const updateData = () => {
   // currentComponent.value = NoteList;
   isDisabled.value = true;
   isSaving.value = false;
-  dataUpdate.value = null;
-  id.value = "";
+
   Swal.fire({
     icon: "success",
     title: "Your note has been saved",
