@@ -4,9 +4,9 @@
   <div class="row row-cols-lg-2 row-cols-md-3 row-cols-sm-2 row-cols-1">
     
    
-      <div class="col my-3" v-for="note in notes" :key="note.id">
+      <div class="col px-2 py-2" v-for="note in notes" :key="note.id">
         <div
-          class="card h-100 border-primary bg-primary text-white"
+          class="card h-100 border-primary bg-primary text-white  shadow "
           @click.prevent="$emit('showNoteDetail', note.id)"
         >
           <div class="card-body">

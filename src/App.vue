@@ -104,6 +104,7 @@ const deleteNote = () => {
       isDisabled.value = true;
       isSaving.value = false;
       id.value = "";
+      Swal.fire("Deleted!", "", "success");
     }
   });
 };
@@ -114,8 +115,11 @@ const setItem = () => {
 
 const updateData = () => {
   store.commit("note/updateNote", dataUpdate.value);
+  // currentComponent.value = NoteList;
   isDisabled.value = true;
   isSaving.value = false;
+  dataUpdate.value = null;
+  id.value = "";
   Swal.fire({
     icon: "success",
     title: "Your note has been saved",
@@ -210,24 +214,29 @@ const updatedData = (obj) => {
           v-if="currentComponent == NoteDetail ? true : false"
         >
           <transition name="slide-fade" mode="out-in">
-            <div class="container-fluid justify-content-between px-1">
+            <div class="container-fluid justify-content-between px-2">
               <a
                 href="#"
                 class="nav-link btn btn-primary text-white btn-sm"
                 @click.prevent="showNoteList"
               >
-                <i class="bi bi-chevron-left"></i>
+                <i class="bi bi-x-lg"></i>
               </a>
 
               <div class="d-flex gap-2">
                 <a
                   href="#"
-                  class="nav-link btn btn-primary text-white btn-sm"
-                  :class="{ disabled: !isSaving }"
-                  @click.prevent="updateData"
+                  class="nav-link bg-primary text-white btn-sm"
+                  @click.prevent="edit"
                 >
-                  <i class="bi bi-save"></i>
-                  Simpan
+                  <template v-if="isDisabled">
+                    <i class="bi bi-lock"></i>
+                    Lock
+                  </template>
+                  <template v-else>
+                    <i class="bi bi-unlock"></i>
+                    Unlock
+                  </template>
                 </a>
                 <a
                   href="#"
@@ -246,13 +255,13 @@ const updatedData = (obj) => {
           v-else-if="currentComponent == NoteCreate ? true : false"
         >
           <transition name="slide-fade" mode="out-in">
-            <div class="container-fluid justify-content-end">
+            <div class="container-fluid justify-content-end px-2">
               <a
                 href="#"
                 class="nav-link btn btn-primary text-white btn-sm"
                 @click.prevent="showNoteList"
               >
-                <i class="bi bi-chevron-right"></i>
+                <i class="bi bi-x-lg"></i>
               </a>
             </div>
           </transition>
@@ -287,17 +296,12 @@ const updatedData = (obj) => {
           <div class="container-fluid justify-content-center">
             <a
               href="#"
-              class="nav-link bg-primary text-white btn-sm"
-              @click.prevent="edit"
+              class="nav-link btn btn-primary text-white btn-sm"
+              :class="{ disabled: !isSaving }"
+              @click.prevent="updateData"
             >
-              <template v-if="isDisabled">
-                <i class="bi bi-lock"></i>
-                Lock
-              </template>
-              <template v-else>
-                <i class="bi bi-unlock"></i>
-                Unlock
-              </template>
+              <i class="bi bi-save"></i>
+              Simpan
             </a>
           </div>
         </template>
@@ -375,7 +379,7 @@ const updatedData = (obj) => {
 
 .slide-right-enter-from {
   transform: translateX(400px);
-   /* transform:scale(0); */
+  /* transform:scale(0); */
   opacity: 0;
 }
 
@@ -402,11 +406,9 @@ const updatedData = (obj) => {
 
 .slide-left-leave-to {
   transform: translateX(400px);
-   /* transform:scale(0); */
+  /* transform:scale(0); */
   opacity: 0;
 }
-
-
 
 /* FADE OUT */
 .fade-out-enter-active {
@@ -426,7 +428,6 @@ const updatedData = (obj) => {
   transform: scale(0);
   opacity: 0;
 }
-
 
 /* FADE IN */
 .fade-in-enter-active {
@@ -458,7 +459,7 @@ const updatedData = (obj) => {
 
 .in-enter-from {
   transform: scale(2);
-  opacity:0;
+  opacity: 0;
 }
 
 .in-leave-to {
@@ -466,17 +467,16 @@ const updatedData = (obj) => {
   opacity: 0;
 }
 
-
 /* FADE */
-.fade-enter-active,.fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: all 0.2s ease-out;
 }
 
-
-.fade-enter-from,.fade-leave-to {
-  opacity:0;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
-
 
 /* width */
 ::-webkit-scrollbar {
